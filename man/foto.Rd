@@ -4,23 +4,36 @@
 \alias{foto}
 \title{Calculates FOTO classification of texture}
 \usage{
-foto(x, window_size = 61, method = "zones", plot = FALSE,
-  norm_spec = TRUE)
+foto(
+  x,
+  window_size = 61,
+  method = "zones",
+  norm_spec = FALSE,
+  high_pass = TRUE,
+  pca = TRUE,
+  plot = FALSE
+)
 }
 \arguments{
-\item{x}{an image file, raster layer, stack or brick 
-for multilayered images (RGB or otherwise) data are averaged to 
-a single layer raster}
+\item{x}{an image file, or single or multi-layer SpatRaster
+(RGB or otherwise), multi-layer data are averaged to a single layer}
 
 \item{window_size}{a moving window size in pixels (default = 61 pixels)}
 
 \item{method}{zones (for discrete zones) or mw for a moving window
 approach}
 
-\item{plot}{plot output, bolean \code{TRUE} or \code{FALSE}}
-
 \item{norm_spec}{normalize radial spectrum,
 bolean \code{TRUE} or \code{FALSE}}
+
+\item{high_pass}{apply high pass filter to radial spectra,
+bolean \code{TRUE} or \code{FALSE}}
+
+\item{pca}{execute PCA, \code{TRUE} or \code{FALSE}. If \code{FALSE} only
+the radial spectra are returned for additional manipulation. Plotting is
+ignored if set to \code{FALSE}.}
+
+\item{plot}{plot output, bolean \code{TRUE} or \code{FALSE}}
 }
 \value{
 returns a radial spectrum for a moving window across a
@@ -30,25 +43,26 @@ raster layer
 Note that the input matrix should be square or results will be discarded
 }
 \examples{
-
-\donttest{
+\dontrun{
 # load demo data
-r <- raster::raster(system.file("extdata", "yangambi.png", package = "foto",
-     mustWork = TRUE))
+r <- terra::rast(system.file("extdata",
+  "yangambi.png",
+  package = "foto",
+  mustWork = TRUE
+))
 
 # classify pixels using zones (discrete steps)
 output <- foto(r,
-               plot = TRUE,
-               window_size = 25,
-               method = "zones")
+  plot = FALSE,
+  window_size = 25,
+  method = "zones"
+)
 
 # print data structure
 print(names(output))
 }
+
 }
 \seealso{
 \code{\link[foto]{rspectrum}}
 }
-\keyword{foto,}
-\keyword{radial}
-\keyword{spectrum}

@@ -4,7 +4,7 @@
 \alias{rspectrum}
 \title{Calculates a radial spectrum}
 \usage{
-rspectrum(x, w, n = TRUE, env, ...)
+rspectrum(x, w, n = TRUE, h = TRUE, env, ...)
 }
 \arguments{
 \item{x}{a square matrix}
@@ -12,6 +12,10 @@ rspectrum(x, w, n = TRUE, env, ...)
 \item{w}{a moving window size}
 
 \item{n}{normalize, bolean \code{TRUE} or \code{FALSE}}
+
+\item{h}{high pass filter on the two first spectra values
+set to 0, limits the influence of low frequency components
+bolean \code{TRUE} or \code{FALSE}}
 
 \item{env}{local environment to evaluate}
 
@@ -24,6 +28,3 @@ in order to classify texture using a PCA (or other) analysis.
 \description{
 This is an internal function and not to be used stand-alone.
 }
-\keyword{foto,}
-\keyword{radial}
-\keyword{spectrum}
